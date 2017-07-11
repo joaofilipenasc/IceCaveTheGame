@@ -1,0 +1,56 @@
+use "jerimum"
+
+fundo = Imagem("background.png")
+iceman = Imagem("cima.png")
+fireman = Imagem("fireman.png")
+bloco = Imagem("bloco.png")
+
+p_blocos = [
+	[528, 80],
+	[528, 145],
+	[80, 400],
+	[210, 524],
+	[210, 400],
+	[ 400, 400],
+	[400,460],
+	[460, 460],
+	[145, 208],
+	[208, 80],
+	[272,145],
+	[335,80],
+	[80,335],
+	[465,208]
+]
+p_iceman = [
+	[44, 512]
+]
+
+p_fireman = [
+	[296, 236]
+]
+
+tipo Mapa
+	desenhar()
+		para i em p_blocos faça
+  			bloco.desenhe(i[1], i[2], 1)
+		fim
+	fim
+fim
+
+mapa = Mapa()
+mapa.desenhar()
+
+
+atualize()
+
+fim
+
+
+desenhe()
+  fundo.desenhe(0, 0, 0)
+  iceman.desenhe(82, 532, 1)
+  fireman.desenhe(276, 334, 1)
+  mapa.desenhar()
+fim
+
+jogo.iniciar("icecave", 640, 640, atualize, desenhe)
