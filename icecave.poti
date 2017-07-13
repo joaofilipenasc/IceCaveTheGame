@@ -4,6 +4,7 @@ fundo = Imagem("background.png")
 iceman = Imagem("cima.png")
 fireman = Imagem("fireman.png")
 bloco = Imagem("bloco.png")
+bloco_trincado = Imagem("blocotrincado.png")
 
 p_blocos = [
 	[528, 80], #8,1
@@ -17,11 +18,13 @@ p_blocos = [
 	[145, 208], #2,3
 	[208, 80], #3,1
 	[272,145], #4,2
-	[335, 80], #Bloco quebrável
 	[80, 335], #1,5
 	[465, 208] #7,3
 ]
 
+p_bloco_trincado = [
+	[335, 80]
+]
 p_posicoes = [
 
 ]
@@ -39,6 +42,9 @@ tipo Mapa
 	desenhar()
 		para i em p_blocos faça
   			bloco.desenhe(i[1], i[2], 1)
+		para i em p_bloco_trincado faça
+				bloco_trincado.desenhe(i[1], i[2], 1)
+			fim
 		fim
 	fim
 fim
@@ -53,7 +59,7 @@ tipo Iceman
       			iceman.desenhe(i, p_iceman_y, 1)
       			p_iceman_x := i
     			fim
-  		fim 	
+  		fim
   	fim
 fim
 
@@ -70,6 +76,6 @@ desenhe()
   iceman.desenhe(p_iceman_x, p_iceman_y, 1)
   fireman.desenhe(276, 334, 1)
   mapa.desenhar()
-fim
+	fim
 
 jogo.iniciar("icecave", 640, 640, atualize, desenhe, 1)
