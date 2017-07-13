@@ -6,27 +6,33 @@ fireman = Imagem("fireman.png")
 bloco = Imagem("bloco.png")
 
 p_blocos = [
-	[528, 80],
-	[528, 145],
-	[80, 400],
-	[210, 524],
-	[210, 400],
-	[ 400, 400],
-	[400,460],
-	[460, 460],
-	[145, 208],
-	[208, 80],
-	[272,145],
-	[335,80],
-	[80,335],
-	[465,208]
-]
-p_iceman = [
-	[44, 512]
+	[528, 80], #8,1
+	[528, 145], #8,2
+	[80, 400], #5,1
+	[210, 524], #7,3
+	[210, 400], #3,8
+	[400, 400], #6,6
+	[400, 460], #6,7
+	[460, 460], #7,7
+	[145, 208], #2,3
+	[208, 80], #3,1
+	[272,145], #4,2
+	[335, 80], #Bloco quebrável
+	[80, 335], #1,5
+	[465, 208] #7,3
 ]
 
+p_posicoes = [
+
+]
+
+var p_iceman_x := 44 #19 x 22
+var p_iceman_y := 525
+
+var m_iceman = 0
+
 p_fireman = [
-	[296, 236]
+	296, 236
 ]
 
 tipo Mapa
@@ -40,17 +46,30 @@ fim
 mapa = Mapa()
 mapa.desenhar()
 
+tipo Iceman
+  	andar(x , y:Inteiro)
+  		se p_iceman_x < x então
+    			para i de p_iceman_x até x faça
+      			iceman.desenhe(i, p_iceman_y, 1)
+      			p_iceman_x := i
+    			fim
+  		fim 	
+  	fim
+fim
+
+iceman2 = Iceman()
 
 atualize()
-
+	iceman2.andar(400,200)
 fim
+
 
 
 desenhe()
   fundo.desenhe(0, 0, 0)
-  iceman.desenhe(82, 532, 1)
+  iceman.desenhe(p_iceman_x, p_iceman_y, 1)
   fireman.desenhe(276, 334, 1)
   mapa.desenhar()
 fim
 
-jogo.iniciar("icecave", 640, 640, atualize, desenhe)
+jogo.iniciar("icecave", 640, 640, atualize, desenhe, 1)
