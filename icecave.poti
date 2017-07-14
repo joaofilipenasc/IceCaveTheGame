@@ -9,7 +9,7 @@ bloco_trincado = Imagem("blocotrincado.png")
 p_blocos = [
 	[528, 80], #8,1
 	[528, 145], #8,2
-	[80, 400], #5,1
+	#[80, 400], #1,6
 	[210, 524], #7,3
 	[210, 400], #3,8
 	[400, 400], #6,6
@@ -29,10 +29,11 @@ p_posicoes = [
 
 ]
 
-var p_iceman_x := 44 #19 x 22
+
+var p_iceman_x := 76 #19 x 22
 var p_iceman_y := 525
 
-var m_iceman = 0
+var mov_iceman = 0
 
 p_fireman = [
 	296, 236
@@ -58,18 +59,23 @@ tipo Iceman
     			para i de p_iceman_x até x faça
       			iceman.desenhe(i, p_iceman_y, 1)
       			p_iceman_x := i
-    			fim
-  		fim
-  	fim
-fim
+					fim
+				fim
+			se p_iceman_y < y então
+					para i de p_iceman_y até y  faça
+						iceman.desenhe(p_iceman_x, i, 1)
+						p_iceman_y := i
+
+						fim
+					fim
+				fim
+			fim
 
 iceman2 = Iceman()
 
 atualize()
-	iceman2.andar(400,200)
+#	iceman2.andar(400,200)
 fim
-
-
 
 desenhe()
   fundo.desenhe(0, 0, 0)
