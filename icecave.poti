@@ -7,33 +7,46 @@ bloco = Imagem("bloco.png")
 bloco_trincado = Imagem("blocotrincado.png")
 
 p_blocos = [
-	[528, 80], #8,1
-	[528, 145], #8,2
-	#[80, 400], #1,6
-	[210, 524], #7,3
-	[210, 400], #3,8
-	[400, 400], #6,6
-	[400, 460], #6,7
-	[460, 460], #7,7
-	[145, 208], #2,3
-	[208, 80], #3,1
-	[272,145], #4,2
-	[80, 335], #1,5
-	[465, 208] #7,3
+	[513, 70], #8,1
+	[513, 135], #8,2
+	[195, 514], #7,3
+	[195, 390], #3,8
+	[385, 390], #6,6
+	[385, 450], #6,7
+	[445, 450], #7,7
+	[130, 198], #2,3
+	[193, 70], #3,1
+	[257, 135], #4,2
+	[65, 325], #1,6
+	[450, 198] #7,3
 ]
 
 p_bloco_trincado = [
-	[335, 80]
+	[320, 70]
 ]
 p_posicoes = [
-
+	[576, 128],
+	[576, 192],
+	[512, 256],
+	[182, 512], #3,8
+	[448, 448],
+	[448, 512],
+	[512, 512],
+	[192, 256], #2,3
+	[256, 128],
+	[320, 192],
+	[],
+	[128, 320], #1,6
+	[512, 256],
+	[576, 320], #Parede
+	
+	
 ]
 
+var p_iceman_x := 74 #19 x 22
+var p_iceman_y := 511
 
-var p_iceman_x := 76 #19 x 22
-var p_iceman_y := 525
-
-var mov_iceman = 0
+var m_iceman = 0
 
 p_fireman = [
 	296, 236
@@ -55,33 +68,64 @@ mapa.desenhar()
 
 tipo Iceman
   	andar(x , y:Inteiro)
-  		se p_iceman_x < x então
-    			para i de p_iceman_x até x faça
-      			iceman.desenhe(i, p_iceman_y, 1)
-      			p_iceman_x := i
-					fim
-				fim
-			se p_iceman_y < y então
-					para i de p_iceman_y até y  faça
-						iceman.desenhe(p_iceman_x, i, 1)
-						p_iceman_y := i
+  	var m_iceman_x := p_iceman_x
+  	var m_iceman_y := p_iceman_y
+  
+  		se m_iceman_x < x então
+    			para i de m_iceman_x até x faça
+      			m_iceman_x := i
+      			p_iceman_x := m_iceman_x
+    			fim
+    		senaose m_iceman_x > x então
+      		enquanto m_iceman_x > x faça
+        			m_iceman_x := m_iceman_x - 20
+        			p_iceman_x := m_iceman_x
+      		fim
+    		fim
+    		
+        	
+        	se m_iceman_y < y então
+    			para i de m_iceman_y até y faça
+      			m_iceman_y := i
+      			p_iceman_y := m_iceman_y
+    			fim
+    		senaose m_iceman_y > y então
+      		enquanto m_iceman_y > y faça
+        			m_iceman_y := m_iceman_y - 20
+        			p_iceman_y := m_iceman_y
+      		fim
+    		fim
+    		fim
+		fim
 
-						fim
-					fim
-				fim
-			fim
+	colisao(l:Inteiro)
 
+	d := TECLA_PARA_DIREITA
+	w := TECLA_PARA_CIMA
+	s := TECLA_PARA_BAIXO
+	a := TECLA_PARA_ESQUERDA
+		
+ 
 iceman2 = Iceman()
 
 atualize()
-#	iceman2.andar(400,200)
+	se Teclado.TECLA_PARA_DIREITA então
+		iceman2.andar(182, 511)
+	fim
+	se Teclado.TECLA_PARA_CIMA então
+		iceman2.andar(182, 256)
+
+	fim
+	#iceman.desenhe(p_iceman_x -30, p_iceman_y -30, 1)
 fim
+
+
 
 desenhe()
   fundo.desenhe(0, 0, 0)
-  iceman.desenhe(p_iceman_x, p_iceman_y, 1)
+  iceman.desenhe(p_iceman_x -10, p_iceman_y +10, 1)
   fireman.desenhe(276, 334, 1)
   mapa.desenhar()
 	fim
 
-jogo.iniciar("icecave", 640, 640, atualize, desenhe, 1)
+jogo.iniciar("icecave", 640, 640, atualize, desenhe, 10)
