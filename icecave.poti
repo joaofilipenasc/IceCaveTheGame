@@ -2,7 +2,6 @@ use "jerimum"
 
 fundo = Imagem("background.png")
 iceman = Imagem("cima.png")
-fireman = Imagem("fireman.png")
 bloco = Imagem("bloco.png")
 bloco_trincado = Imagem("blocotrincado.png")
 
@@ -21,26 +20,17 @@ p_blocos = [		# col, row
 	#[450, 198] #7,3
 ]
 
-p_bloco_trincado = [
-	[320, 70]
-]
-
 var p_iceman_x := 74 #19 x 22 # posição inicial
 var p_iceman_y := 511 # posição inicial
 
 var p_iceman_colx = 8
 var p_iceman_coly = 1
 
-var p_fireman_x = 296
-var p_fireman_y = 236
 
 tipo Mapa
 	desenhar()
 		para i em p_blocos faça
   			bloco.desenhe(i[1], i[2], 1)
-		para i em p_bloco_trincado faça
-				bloco_trincado.desenhe(i[1], i[2], 1)
-			fim
 		fim
 	fim
 fim
@@ -69,7 +59,7 @@ colidiu(lado:Texto)
 		se ultimo_comando == "s" então p_iceman_y := p_iceman_y - 10 fim
 
 		ultimo_comando := "w"
-		
+
 		para i em p_blocos faça
 
 			se i[4] == py.inteiro e px.inteiro == i[3] então
@@ -130,17 +120,18 @@ colidiu(lado:Texto)
 
 		fim
 	fim
+fim
 
-	retorne retorno
+	retorno
 fim
 
 tipo Iceman
   	andar()
 
-  		var m_iceman_x := p_iceman_x
-  		var m_iceman_y := p_iceman_y
-  
-		se Teclado.TECLA_PARA_CIMA e colidiu( "w" ) == falso então
+  	var m_iceman_x := p_iceman_x
+  	var m_iceman_y := p_iceman_y
+
+		se Teclado.TECLA_PARA_CIMA e colidiu("w") == falso então
 			p_iceman_y := p_iceman_y - 10
 		fim
 
@@ -154,13 +145,13 @@ tipo Iceman
 
 		se Teclado.TECLA_PARA_DIREITA e colidiu("d") == falso então
 			p_iceman_x := p_iceman_x + 10
-		fim	
+		fim
 
 		#escreva "{p_iceman_x} {p_iceman_y}"
 	fim
 fim
-	
- 
+
+
 iceman2 = Iceman()
 
 atualize()
@@ -171,7 +162,6 @@ fim
 desenhe()
 	fundo.desenhe(0, 0, 0)
 	iceman.desenhe(p_iceman_x , p_iceman_y, 1)
-	fireman.desenhe(p_fireman_x, p_fireman_y, 1)
 	mapa.desenhar()
 fim
 
