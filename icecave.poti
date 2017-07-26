@@ -6,51 +6,33 @@ fireman = Imagem("fireman.png")
 bloco = Imagem("bloco.png")
 bloco_trincado = Imagem("blocotrincado.png")
 
-p_blocos = [
-	[513, 70], #8,1
-	[513, 135], #8,2
-	[195, 514], #7,3
-	[195, 390], #3,8
-	[385, 390], #6,6
-	[385, 450], #6,7
-	[445, 450], #7,7
-	[130, 198], #2,3
-	[193, 70], #3,1
-	[257, 135], #4,2
-	[65, 325], #1,6
-	[450, 198] #7,3
+p_blocos = [		# col, row
+	[513, 70, 8, 1], #8,1
+	[513, 135, 8, 2], #8,2
+	#[195, 514, 7, 3], #7,3
+	[195, 390, 3, 6], #3,6
+	[385, 390, 6, 6], #6,6
+	[385, 450, 6, 7] #6,7
+	#[445, 450], #7,7
+	#[130, 198], #2,3
+	#[193, 70], #3,1
+	#[257, 135], #4,2
+	#[65, 325], #1,6
+	#[450, 198] #7,3
 ]
 
 p_bloco_trincado = [
 	[320, 70]
 ]
-p_posicoes = [
-	[576, 128],
-	[576, 192],
-	[512, 256],
-	[182, 512], #3,8
-	[448, 448],
-	[448, 512],
-	[512, 512],
-	[192, 256], #2,3
-	[256, 128],
-	[320, 192],
-	[],
-	[128, 320], #1,6
-	[512, 256],
-	[576, 320], #Parede
-	
-	
-]
 
-var p_iceman_x := 74 #19 x 22
-var p_iceman_y := 511
+var p_iceman_x := 74 #19 x 22 # posição inicial
+var p_iceman_y := 511 # posição inicial
 
-var m_iceman = 0
+var p_iceman_colx = 8
+var p_iceman_coly = 1
 
-p_fireman = [
-	296, 236
-]
+var p_fireman_x = 296
+var p_fireman_y = 236
 
 tipo Mapa
 	desenhar()
@@ -66,66 +48,131 @@ fim
 mapa = Mapa()
 mapa.desenhar()
 
+var ultimo_comando = ""
+colidiu(lado:Texto)
+	# "w" cima
+	# "a" esquerda
+	# "d" direita
+	# "s" baixo
+
+	var retorno = falso
+
+	var px := p_iceman_x / 64
+	p_iceman_colx := px.inteiro
+
+	var py := p_iceman_y / 64
+	p_iceman_coly := py.inteiro
+
+	#escreva "{p_iceman_colx} {p_iceman_coly}"
+
+	se lado == "w" então
+		se ultimo_comando == "s" então p_iceman_y := p_iceman_y - 10 fim
+
+		ultimo_comando := "w"
+		
+		para i em p_blocos faça
+
+			se i[4] == py.inteiro e px.inteiro == i[3] então
+				se p_iceman_x >= i[1] então
+					escreva "Colidiu cima"
+					retorno := verdadeiro
+				fim
+			fim
+
+		fim
+	fim
+
+	se lado == "a" então
+		#se ultimo_comando == "d" então p_iceman_y := p_iceman_y - 10 fim
+		se ultimo_comando == "d" então p_iceman_x := p_iceman_x - 10 fim
+
+		escreva "{ultimo_comando}"
+		ultimo_comando := "a"
+		para i em p_blocos faça
+
+			se i[4] == py.inteiro e px.inteiro == i[3] então
+				se p_iceman_y - 40 > i[1] então
+					retorno := verdadeiro
+				fim
+			fim
+
+		fim
+	fim
+
+	se lado == "s" então
+		se ultimo_comando == "w" então p_iceman_y := p_iceman_y + 10 fim
+		ultimo_comando := "s"
+		para i em p_blocos faça
+
+			se i[4] == py.inteiro e px.inteiro == i[3] então
+				se p_iceman_y - 100 <= i[2] então
+					escreva "Colidiu baixo"
+					retorno := verdadeiro
+				fim
+			fim
+
+		fim
+	fim
+
+	se lado == "d" então
+		se ultimo_comando == "a" então p_iceman_x := p_iceman_x + 10 fim
+
+		ultimo_comando := "d"
+		para i em p_blocos faça
+
+			se i[4] == py.inteiro e px.inteiro == i[3] então
+				escreva ""
+				se p_iceman_x < i[2] então
+					escreva "Colidiu direita"
+					retorno := verdadeiro
+				fim
+			fim
+
+		fim
+	fim
+
+	retorne retorno
+fim
+
 tipo Iceman
-  	andar(x , y:Inteiro)
-  	var m_iceman_x := p_iceman_x
-  	var m_iceman_y := p_iceman_y
+  	andar()
+
+  		var m_iceman_x := p_iceman_x
+  		var m_iceman_y := p_iceman_y
   
-  		se m_iceman_x < x então
-    			para i de m_iceman_x até x faça
-      			m_iceman_x := i
-      			p_iceman_x := m_iceman_x
-    			fim
-    		senaose m_iceman_x > x então
-      		enquanto m_iceman_x > x faça
-        			m_iceman_x := m_iceman_x - 20
-        			p_iceman_x := m_iceman_x
-      		fim
-    		fim
-    		
-        	
-        	se m_iceman_y < y então
-    			para i de m_iceman_y até y faça
-      			m_iceman_y := i
-      			p_iceman_y := m_iceman_y
-    			fim
-    		senaose m_iceman_y > y então
-      		enquanto m_iceman_y > y faça
-        			m_iceman_y := m_iceman_y - 20
-        			p_iceman_y := m_iceman_y
-      		fim
-    		fim
-    		fim
+		se Teclado.TECLA_PARA_CIMA e colidiu( "w" ) == falso então
+			p_iceman_y := p_iceman_y - 10
 		fim
 
-	colisao(l:Inteiro)
+		se Teclado.TECLA_PARA_BAIXO e colidiu("s") == falso então
+			p_iceman_y := p_iceman_y + 10
+		fim
 
-	d := TECLA_PARA_DIREITA
-	w := TECLA_PARA_CIMA
-	s := TECLA_PARA_BAIXO
-	a := TECLA_PARA_ESQUERDA
-		
+		se Teclado.TECLA_PARA_ESQUERDA e colidiu("a") == falso então
+			p_iceman_x := p_iceman_x - 10
+		fim
+
+		se Teclado.TECLA_PARA_DIREITA e colidiu("d") == falso então
+			p_iceman_x := p_iceman_x + 10
+		fim	
+
+		#escreva "{p_iceman_x} {p_iceman_y}"
+	fim
+fim
+	
  
 iceman2 = Iceman()
 
 atualize()
-	se Teclado.TECLA_PARA_DIREITA então
-		iceman2.andar(182, 511)
-	fim
-	se Teclado.TECLA_PARA_CIMA então
-		iceman2.andar(182, 256)
-
-	fim
+	iceman2.andar()
 	#iceman.desenhe(p_iceman_x -30, p_iceman_y -30, 1)
 fim
 
-
-
 desenhe()
-  fundo.desenhe(0, 0, 0)
-  iceman.desenhe(p_iceman_x -10, p_iceman_y +10, 1)
-  fireman.desenhe(276, 334, 1)
-  mapa.desenhar()
-	fim
+	fundo.desenhe(0, 0, 0)
+	iceman.desenhe(p_iceman_x , p_iceman_y, 1)
+	fireman.desenhe(p_fireman_x, p_fireman_y, 1)
+	mapa.desenhar()
+fim
 
 jogo.iniciar("icecave", 640, 640, atualize, desenhe, 10)
