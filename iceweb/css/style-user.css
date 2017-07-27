@@ -1,0 +1,115 @@
+@font-face {
+    font-family: "Moon Flower";
+    src: url('../fonts/Moon Flower.ttf') format("truetype");
+}
+
+
+html, body {
+      font-weight: bold;
+      height: 100vh;
+      margin: 0;
+      color: #431210;
+      background: url('../images/bg-opacity.png') fixed #fff;
+  }
+
+.panel-heading{
+      font-family: 'Moon Flower', sans-serif;
+      font-size: 25px;
+}
+
+.navbar-static-top{
+    position: fixed; /* Set the navbar to fixed position */
+    top: 0; /* Position the navbar at the top of the page */
+    width: 100%; /* Full width */
+    background-color: white;
+    height: 80px;
+    font-family: 'Moon Flower', sans-serif;
+}
+
+.links > a {
+    color: #431108;
+    padding: 0 25px;
+    font-size: 25px;
+    font-weight: 600;
+    letter-spacing: .1rem;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.links > a:hover{
+    text-decoration: none;
+    color: #431108;
+  }
+
+.top-right {
+    position: absolute;
+    right: 10px;
+    top: 18px;
+}
+
+.panel-default{
+    margin-top: 10px;
+    font-family: 'helvetica', sans-serif;
+}
+
+.navbar-brand{
+  color: #431210;
+  padding: 25px 0 0 0;
+  font-weight: bold;
+  font-size: 60px;
+  margin-left: 20px;
+}
+
+footer {
+    position: relative;
+    height: 300px;
+    bottom: 0;
+    width: 100%;
+    background-color: #431210;
+    color: white;
+    font-family: 'Moon Flower', sans-serif;
+}
+
+footer {
+    position: relative;
+    height: 300px;
+    bottom: 0;
+    width: 100%;
+    background-color: #431210;
+    color: white;
+}
+
+footer .content h1{
+  padding: 125px 0 0 300px;
+  font-size: 80px;
+  font-weight: bold;
+  float: left;
+  clear: right;
+  color: white;
+}
+
+footer .content a{
+  text-decoration: none;
+  color: white;
+}
+
+footer .content .links-uteis{
+  padding: 160px 0 0 0;
+  margin-left: 15%;
+  font-size: 30px;
+  font-weight: bold;
+  float: left;
+  clear: right;
+  width: 10%;
+}
+
+footer .content p{
+  margin: 0 13% 0 0;
+  padding: 160px 0 0 0;
+  float: right;
+  font-size: 25px;
+}
+
+.btn{
+  margin-left: 50px;
+}
